@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button'
-import Image from 'next/image'
+import Image from 'next/image';
+import { UserButton } from '@clerk/nextjs';
 
 export default function Home() {
   return (
     <>
-      <p className='text-3xl font-medium text-sky-800'>This is a protected page</p>
+     <UserButton afterSignOutUrl='/'></UserButton>
     </>
   )
 }
