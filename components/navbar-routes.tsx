@@ -18,10 +18,12 @@ const isPlayerPage = pathname?.includes("/chapter")
   return (
     <div className="flex gap-x-2 ml-auto">
       {isTeacherPage || isPlayerPage ? (
-        <Button>
-          <LogOut className='h-4 w-4 mr-2'/>
-          Exit
-        </Button>
+        <Link href="/">
+          <Button>
+            <LogOut className='h-4 w-4 mr-2'/>
+            Exit
+          </Button>
+        </Link>
       ) : (
         <Link href="/teacher/courses">
           <Button size="sm" variant="ghost">

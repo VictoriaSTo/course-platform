@@ -1,6 +1,6 @@
 "use client";
 
-import { Layout, Compass } from 'lucide-react';
+import { Layout, Compass, List, BarChart } from 'lucide-react';
 import React from 'react'
 import SidebarItem from './sidebar-item';
 
@@ -14,6 +14,19 @@ const guestRoutes = [
     icon: Compass,
     label: 'Browse',
     href: "/search",
+  },
+]
+
+const teacherRoutes = [
+  {
+    icon: List,
+    label: 'Courses',
+    href: "/teacher/courses",
+  },
+  {
+    icon: BarChart,
+    label: 'Analytics',
+    href: "/teacher/analytics",
   },
 ]
 
