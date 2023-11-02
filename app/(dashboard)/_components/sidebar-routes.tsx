@@ -2,6 +2,7 @@
 
 import { Layout, Compass } from 'lucide-react';
 import React from 'react'
+import SidebarItem from './sidebar-item';
 
 const guestRoutes = [
   {
@@ -17,9 +18,18 @@ const guestRoutes = [
 ]
 
 const SidebarRoutes = () => {
+  const routes = guestRoutes;
+
   return (
     <div className='flex flex-col w-full'>
-      Routes
+      {routes.map((route) => (
+        <SidebarItem 
+          key={route.href}
+          icon={route.icon}
+          label={route.label}
+          href={route.href}
+        />
+      ))}
     </div>
   )
 }
