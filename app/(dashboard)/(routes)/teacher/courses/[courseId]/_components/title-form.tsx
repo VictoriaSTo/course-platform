@@ -1,10 +1,11 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 
 import * as z from "zod";
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { Pencil } from 'lucide-react';
 
 import {
   Form,
@@ -15,6 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+
 
 const formSchema = z.object({
   title: z.string().min(1, {
@@ -31,6 +33,9 @@ interface TitleFormProps {
 const TitleForm = ( {initialData, courseId } : 
   TitleFormProps
   ) => {
+    const [isEditing, setIsEditing] = useState(false);
+
+    const toggleEdit = () => setIsEditing((current) => !current);
     const from = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: initialData
@@ -43,8 +48,25 @@ const TitleForm = ( {initialData, courseId } :
     }
 
   return (
-    <div>
-      Title form
+    <div className="mt-6 border bg-slate-100 rounded-md p-4">
+      <div className="font-medium flex items-center justify-between">
+        Course title
+        <Button variant="ghost" onClick={toggleEdit}>
+          {isEditing ? (
+            <>Cancel</>
+          ) : (
+            <>
+              <Pencil className='h-4 w-4 mr-2'/>
+              Edit title
+            </>
+          )}
+        </Button>
+      </div>
+      {!isEditing && (
+        <p className='text-sm mt-2'>
+          {initialData.title}
+        </p>
+      )}
     </div>
   )
 }
