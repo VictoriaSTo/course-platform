@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
-import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 import * as z from "zod";
 import axios from 'axios';
@@ -9,19 +9,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Course } from '@prisma/client';
 import { Pencil, PlusCircle, ImageIcon } from 'lucide-react';
-import Image from "next/image";
 import { FileUpload } from "@/components/file-upload";
-
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage
-} from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import toast from 'react-hot-toast';
-import { Textarea } from '@/components/ui/textarea';
 
 
 const formSchema = z.object({
@@ -47,7 +37,6 @@ const ImageForm = ( {initialData, courseId } :
       }
     });
 
-    const { isSubmitting, isValid } = form.formState;
     
     const router = useRouter();
 
