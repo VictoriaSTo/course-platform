@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs";
-import { useParams } from "next/navigation";
 import { db } from "@/lib/db";
 
 export async function PATCH(
