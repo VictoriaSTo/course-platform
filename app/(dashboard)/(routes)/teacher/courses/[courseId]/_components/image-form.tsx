@@ -2,13 +2,13 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { cn } from "@/lib/utils";
-import { Course } from '@prisma/client';
 
 import * as z from "zod";
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { Pencil } from 'lucide-react';
+import { Pencil, PlusCircle } from 'lucide-react';
+import { Course } from '@prisma/client';
 
 import {
   Form,
@@ -17,24 +17,23 @@ import {
   FormItem,
   FormMessage
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import toast from 'react-hot-toast';
 import { Textarea } from '@/components/ui/textarea';
 
 
 const formSchema = z.object({
-  description: z.string().min(1, {
-    message: "Description is required"
+  imageUrl: z.string().min(1, {
+    message: "Image is required"
   })
 })
 
-interface DescriptionFormProps {
+interface ImageFormProps {
   initialData: Course;
   courseId: string;
 }
-const DescriptionForm = ( {initialData, courseId } : 
-  DescriptionFormProps
+const ImageForm = ( {initialData, courseId } : 
+  ImageFormProps
   ) => {
     const [isEditing, setIsEditing] = useState(false);
 
@@ -42,7 +41,7 @@ const DescriptionForm = ( {initialData, courseId } :
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        description: initialData?.description || ""
+        imageUrl: initialData?.imageUrl || ""
       }
     });
 
@@ -64,14 +63,21 @@ const DescriptionForm = ( {initialData, courseId } :
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course description
+        Course image
         <Button variant="ghost" onClick={toggleEdit}>
-          {isEditing ? (
+          {isEditing && (
             <>Cancel</>
-          ) : (
+          )}
+          {!isEditing && !initialData.imageUrl && (
+            <>
+              <PlusCircle className='h-4 w-4 mr-2'/>
+              Add an image
+            </>
+          )}
+          {!isEditing && initialData.imageUrl && (
             <>
               <Pencil className='h-4 w-4 mr-2'/>
-              Edit description
+              Edit image
             </>
           )}
         </Button>
@@ -79,9 +85,9 @@ const DescriptionForm = ( {initialData, courseId } :
       {!isEditing && (
         <p className={cn(
           'text-sm mt-2',
-          !initialData.description && "text-slate-500 italic"
+          !initialData.imageUrl && "text-slate-500 italic"
         )}>
-          {initialData.description || "No description"}
+          {initialData.imageUrl || "No image"}
         </p>
       )}
       {isEditing && (
@@ -92,7 +98,7 @@ const DescriptionForm = ( {initialData, courseId } :
           >
             <FormField 
               control={form.control}
-              name="description"
+              name="image"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -121,4 +127,4 @@ const DescriptionForm = ( {initialData, courseId } :
   )
 }
 
-export default DescriptionForm
+export default ImageForm
